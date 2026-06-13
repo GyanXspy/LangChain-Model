@@ -4,11 +4,21 @@ from typing import TypedDict
 
 load_dotenv()
 
-model = ChatGoogleGenerativeAI(model='gemini-3-flash-preview')
+model = ChatGoogleGenerativeAI(
+    model="gemini-2.5-flash"   
+)
 
 class Review(TypedDict):
     summary: str
-    sentiment:str
+    sentiment: str
 
 structured_output = model.with_structured_output(Review)
-result = model.invoke("""The hardware is great, but the software feels bloated. There are too many pre-installed apps that I can't remove. Also, the UI looks outdated compared to other brands. Hoping for a software update to fix this.""")
+
+result = structured_output.invoke(
+    """The hardware is great, but the software feels bloated.
+    There are too many pre-installed apps that I can't remove.
+    Also, the UI looks outdated compared to other brands.
+    Hoping for a software update to fix this."""
+)
+
+print(result)

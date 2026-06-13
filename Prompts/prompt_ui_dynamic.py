@@ -1,3 +1,4 @@
+from anyio import Path
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import PromptTemplate , load_prompt
 
@@ -12,7 +13,10 @@ style_input = st.selectbox( "Select Explanation Style", ["Beginner-Friendly", "T
 
 length_input = st.selectbox( "Select Explanation Length", ["Short (1-2 paragraphs)", "Medium (3-5 paragraphs)", "Long (detailed explanation)"] )
 
-template = load_prompt('template.json')
+# template = load_prompt('template.json')/
+template = load_prompt(
+    str(Path(__file__).parent / "template.json")
+)
 prompt = template.invoke(
     {
         'paper_input':paper_input,
